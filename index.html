@@ -8,6 +8,7 @@
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap');
 
   :root {
+    --domain-col-width: clamp(190px, 22vw, 300px);
     --bg: #f4f6f9;
     --surface: #ffffff;
     --surface2: #eef1f6;
@@ -289,11 +290,12 @@
   .stat-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
 
   /* TABLE */
-  .table-wrap { padding: 0 32px 48px; overflow-x: auto; position: relative; }
+  .table-wrap { padding: 0 clamp(12px, 3vw, 32px) 48px; overflow-x: auto; position: relative; }
   .table-inner { max-width: 1400px; margin: 0 auto; }
 
   table {
-    width: 100%;
+    width: max(100%, 1120px);
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
     border: 1px solid var(--border);
@@ -318,13 +320,15 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border-bottom: 1px solid var(--border);
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.35;
     position: sticky;
     top: 0;
     z-index: 20;
     transition: background 0.25s;
   }
-  thead th:first-child { border-radius: 8px 0 0 0; width: 200px; min-width: 160px; }
+  thead th:first-child { border-radius: 8px 0 0 0; width: var(--domain-col-width); min-width: var(--domain-col-width); }
+  thead th:not(:first-child) { width: calc((100% - var(--domain-col-width)) / 7); }
   thead th.col-nist  { color: var(--nist);  background: var(--th-nist-bg);  border-left: 2px solid var(--nist); }
   thead th.col-iso27 { color: var(--iso27); background: var(--th-iso27-bg); border-left: 2px solid var(--iso27); }
   thead th.col-iso42 { color: var(--iso42); background: var(--th-iso42-bg); border-left: 2px solid var(--iso42); }
@@ -373,8 +377,28 @@
   .code-cobit { background: var(--code-cobit-bg); color: var(--cobit); }
   .code-euai  { background: var(--code-euai-bg); color: var(--euai); }
 
-  .ref-text { color: var(--ref-text); font-size: 12px; transition: color 0.25s; }
+  .ref-text { color: var(--ref-text); font-size: 12px; transition: color 0.25s; overflow-wrap: anywhere; }
   .empty-cell { color: var(--empty-cell); font-family: 'DM Mono', monospace; font-size: 11px; transition: color 0.25s; }
+
+  @media (max-width: 1100px) {
+    :root { --domain-col-width: clamp(170px, 28vw, 230px); }
+    thead th,
+    tbody td { padding: 10px 10px; }
+    .ref-text { font-size: 11px; }
+    .domain-name { font-size: 12px; }
+  }
+
+  @media (max-width: 760px) {
+    .header,
+    .legend,
+    .filters,
+    .stats,
+    .site-footer { padding-left: 14px; padding-right: 14px; }
+
+    table { width: max(100%, 980px); }
+    thead th { font-size: 9px; letter-spacing: 0.08em; }
+    .ref-code { font-size: 9px; padding: 1px 4px; }
+  }
 
   .no-results { text-align: center; padding: 48px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.1em; }
   #no-results-row { display: none; }
