@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
-👉 **[Open Rosettable](https://pedrolastiko.github.io/rosettable)**
+👉 **[Open Rosettable](https://pedrolastiko.github.io/Rosettable/)**
 
 ---
 
